@@ -19,6 +19,7 @@ import com.miniproject.a2nd.a2ndminiproject.data.Restaurant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +74,10 @@ public class MainActivity extends AppCompatActivity
     private void initContents() {
         // mRestaurants 데이터 생성
         mRestaurants = makeDummyData();
-        Collections.sort(mRestaurants, SortComparators.getSortComparator(SortComparators.SORT_DISTANCE));
+        Comparator<Restaurant> comparator = SortComparators.getSortComparator(SortComparators.SORT_DISTANCE);
+        if(comparator != null) {
+            Collections.sort(mRestaurants, comparator);
+        }
 
         // RecyclerView 설정
         mRestaurantAdapter = new RestaurantAdapter(this, mRestaurants);
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity
     // RecyclerView 레이아웃 형태 변경
     @OnClick(R.id.bt_view_change)
     void onToggleLayoutManager() {
-        if(mGridLayoutManager.getSpanCount() == LAYOUT_LINEAR) {
+        if(LAYOUT_LINEAR == mGridLayoutManager.getSpanCount()) {
             mGridLayoutManager.setSpanCount(LAYOUT_STAGE);
             mLayoutChangeView.setImageResource(R.drawable.img_linear);
         } else {
@@ -154,8 +158,11 @@ public class MainActivity extends AppCompatActivity
     // TabLayout.OnTabSelectedListener
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Collections.sort(mRestaurants, SortComparators.getSortComparator(tab.getPosition()));
-        mRestaurantAdapter.notifyDataSetChanged();
+        Comparator<Restaurant> comparator = SortComparators.getSortComparator(tab.getPosition());
+        if(comparator != null) {
+            Collections.sort(mRestaurants, comparator);
+            mRestaurantAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

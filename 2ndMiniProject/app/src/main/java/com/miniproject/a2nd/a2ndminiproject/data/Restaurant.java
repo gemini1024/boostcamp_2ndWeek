@@ -8,15 +8,15 @@ import java.util.Date;
  */
 
 public class Restaurant {
-    private String name;        // 이름
-    private String content;     // 내용
-    private int imageId;        // 이미지 resource id
-    private boolean checked;    // 체크박스 체크여부
-    private int distance;       // 거리
-    private int popularity;     // 인기
-    private Date time;          // 작성시간
+    private String name;            // 이름
+    private String content;         // 내용
+    private int imageId;            // 이미지 resource id
+    private boolean checked;        // 체크박스 체크여부
+    private double distance;        // 거리
+    private double popularity;      // 인기
+    private Date time;              // 작성시간
 
-    public Restaurant(String name, String content, int imageId, boolean checked, int distance, int popularity, Date time) {
+    public Restaurant(String name, String content, int imageId, boolean checked, double distance, double popularity, Date time) {
         this.name = name;
         this.content = content;
         this.imageId = imageId;
@@ -46,11 +46,11 @@ public class Restaurant {
         this.checked = checked;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public int getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
